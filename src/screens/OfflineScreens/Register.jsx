@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../../components/Ui/CustomInput";
 import ErrorMessage from "../../components/Ui/ErrorMessage";
 import ButtonLoader from "../../components/Loader/ButtonLoader";
+import { useAuthContext } from "../../context/AuthContext";
+import axios from "axios";
+import { API_ROOT } from "../../constants/apiConstant";
 
 const Register = () => {
   // on declare nos state pour les valeurs du formulaire de login
@@ -19,6 +22,12 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+// on recupere la methode signin
+
+const { signIn } = useAuthContext();
+
+
+
   useEffect(() => {
     // si j'ai un utilisateur en session alors on le redirige sur"/" du router online
 
@@ -31,6 +40,46 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // on empeche le conmportement naturel du formulaire
+    setIsLoading(true); // on affiche le loader
+    setErrorMessage(""); // on reinitialise le message d'erreur
+
+    try {
+      if(!email || !password || !confirmPassword || !nickname) {
+        setErrorMessage("Veuillez remplir tous les champs du formulaire.");
+        return;
+      }else if(password !== confirmPassword) {
+        setErrorMessage("Les mots de passe ne correspondent pas.");
+        return;
+      }else if(password.length < 4) {
+        setErrorMessage("Le mot de passe doit contenir au moins 4 caractères.");
+        return;
+      }else{
+        const response = await axios.post(`${API_ROOT}/register`, {email, password, nickname});
+        if(response.data?.success === false) {
+          setErrorMessage(response.data.message);
+        } else {
+          const loggedInUser = {
+            userId: response.data.user.id,
+            email: response.data.user.email,
+            nickname: response.data.user.nickname
+          }
+          await signIn(loggedInUser);
+          setUser(loggedInUser);
+
+          // on force la redirection vers la plateform
+          navigate("/");
+        }
+        
+      }
+
+
+
+    } catch (error) {
+      console.log(`Erreur lors de la requete lors de la creation du compte: ${error}`);
+      setErrorMessage(error);
+    }finally {
+      setIsLoading(false); // on masque le loader
+    }
   };
 
   return (
