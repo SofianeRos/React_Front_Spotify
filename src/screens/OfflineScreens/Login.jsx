@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../../components/Ui/CustomInput";
 import ErrorMessage from "../../components/Ui/ErrorMessage";
 import ButtonLoader from "../../components/Loader/ButtonLoader";
+import { useAuthContext } from "../../context/AuthContext";
+import axios, { Axios } from "axios";
+import { API_ROOT } from "../../constants/apiConstant";
 
 const Login = () => {
   // on declare nos state pour les valeurs du formulaire de login
@@ -16,6 +19,8 @@ const Login = () => {
   // on recupere le hookk de navigation
 
   const navigate = useNavigate();
+  // on recupere la methode signin 
+  const { signIn } = useAuthContext();
 
   useEffect(() => {
     // si j'ai un utilisateur en session alors on le redirige sur"/" du router online
@@ -29,6 +34,47 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // on empeche le conmportement naturel du formulaire
+    setIsLoading(true); // on affiche le loader
+    setErrorMessage(""); // on reinitialise le message d'erreur
+
+
+    // on verifie que les champs sont bien remplis
+
+  try {
+    if(email == "" || password == "") {
+      setErrorMessage("Veuillez remplir tous les champs du formulaire.");
+      return;
+    }
+  
+
+
+   
+      // on execute la requete sur l'Api
+
+      const response = await axios.post(`${API_ROOT}/login`, {email, password});
+
+      if(response.data.success === false) {
+        setErrorMessage(response.data.message);
+      } else {
+        // on reconstruit un objet user
+        const loggedInUser = {
+          userId: response.data.id,
+          email: response.data.email,
+          nickname: response.data.nickname
+        }
+        // on appelle la methode signin de authcontext
+        await signIn(loggedInUser);
+        setUser(loggedInUser);
+
+      }
+
+
+    } catch (error) {
+      console.log(`Erreur lors de la connexion : ${error}`);
+      setErrorMessage("email ou mot de passe incorrect");
+    } finally {
+      setIsLoading(false); // on masque le loader
+    }
   };
 
   return (
