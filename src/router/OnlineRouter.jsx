@@ -7,6 +7,7 @@ import Library from "../screens/OnlineScreens/Library";
 import Playlist from "../screens/OnlineScreens/Playlist";
 import Wishlist from "../screens/OnlineScreens/Wishlist";
 import Detail from "../screens/OnlineScreens/Detail";
+import Account from "../screens/OnlineScreens/Account";
 
 const OnlineRouter = createBrowserRouter([
     {
@@ -37,6 +38,11 @@ const OnlineRouter = createBrowserRouter([
                 path : "/detail/:id",
                 element : <Detail/>
             },
+                        {
+                path : "/account/:id",
+                element : <Account/>
+            },
+
 
 
         ]
