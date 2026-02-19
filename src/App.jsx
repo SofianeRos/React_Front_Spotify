@@ -2,8 +2,15 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./components/Ui/Sidebar";
 import Topbar from "./components/Ui/Topbar";
+import { useSelector } from "react-redux";
+import MusicPlayer from "./components/MusicPlayer";
 
 const App = () => {
+
+  // on recupere la chanson active depuis le store
+const {activeSong} = useSelector((state) => state.player)
+
+
   return (
     <div className="relative flex">
       {/* SIDEBAR: Navigation principale (gauche) */}
@@ -20,6 +27,11 @@ const App = () => {
         </div>
       </div>
       {/* TODO : ici le player */}
+      {activeSong?.title && (
+        <div className="absolute h-28 bottom-0 left-0 right-0 animate-slideup bg-linear-to-br from-white_01 to-black backdrop-blur-lg rounded-t-3xl z-10">
+          <MusicPlayer/>
+        </div>
+      )}
     </div>
   );
 };
