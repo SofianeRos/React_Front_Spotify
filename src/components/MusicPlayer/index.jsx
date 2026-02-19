@@ -5,6 +5,7 @@ import Track from './Track';
 import Controls from './Controls';
 import SeekBar from './SeekBar';
 import Player from './Player';
+import VolumeBar from './VolumeBar';
 
 const MusicPlayer = () => {
 // on va recuperer toutes les donnees du slice palyer 
@@ -105,6 +106,14 @@ return (
             onLoadedData={(event) => setDuration(event.target.duration)}
             />
         </div>
+        {/* barre de volume */}
+        <VolumeBar
+        value={volume}
+        min="0"
+        max="1"
+        onChange={(event) => setVolume(event.target.value)}
+        setVolume={setVolume}
+        />
     </div>
 )
 

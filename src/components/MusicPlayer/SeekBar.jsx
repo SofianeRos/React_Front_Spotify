@@ -10,7 +10,7 @@ const SeekBar = ({ value, min, max, onInput, setSeekTime, appTime }) => {
     `${Math.floor(time / 60)}:${("0" + Math.floor(time % 60)).slice(-2)}`;
 
   return (
-    <div className="hidden sm:flex flex-row items-center">
+    <div className="hidden sm:flex flex-row items-center text-green accent-green">
       <button
         type="button"
         className="hidden lg:mr-4 lg:block text-white"
