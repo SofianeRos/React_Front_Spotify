@@ -20,10 +20,9 @@ useEffect(() => {
 }, [dispatch, id])
 
 const {loading, albumDetail} = useSelector(selectAlbumData);  
-
   return (
     loading ? <PageLoader />:
-    <DetailAlbum album={albumDetail} />
+    <DetailAlbum dataAlbum={albumDetail} />
   )
 }
 

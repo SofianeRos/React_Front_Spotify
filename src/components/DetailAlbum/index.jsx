@@ -1,8 +1,12 @@
 import React from 'react'
+import HeaderDetail from './HeaderDetail'
 
-const DetailAlbum = () => {
+const DetailAlbum = ({ dataAlbum }) => {
   return (
-    <div>DetailAlbum</div>
+    <>
+    <HeaderDetail dataAlbum={dataAlbum}/>
+    
+    </>
   )
 }
 
