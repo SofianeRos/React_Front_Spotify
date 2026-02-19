@@ -10,42 +10,40 @@ import Detail from "../screens/OnlineScreens/Detail";
 import Account from "../screens/OnlineScreens/Account";
 
 const OnlineRouter = createBrowserRouter([
-    {
-        element : <App/>,
-        errorElement : <ErrorPage/>,
-        children : [
-            {
-                path : "/",
-                element : <Home/>
-            },
-                        {
-                path : "/search",
-                element : <Search/>
-            },
-            {
-                path : "/library",
-                element : <Library/>
-            },
-            {
-                path : "/playlist",
-                element : <Playlist/>
-            },
-            {
-                path : "/wishlist",
-                element : <Wishlist/>
-            },
-            {
-                path : "/detail/:id",
-                element : <Detail/>
-            },
-                        {
-                path : "/account/:id",
-                element : <Account/>
-            },
+  {
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
+      },
+      {
+        path: "/library",
+        element: <Library />,
+      },
+      {
+        path: "/playlist",
+        element: <Playlist />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
+      },
+      {
+        path: "/detail/:id",
+        element: <Detail />,
+      },
+      {
+        path: "/account/:id",
+        element: <Account />,
+      },
+    ],
+  },
+]);
 
-
-
-        ]
-    }
-]);    
 export default OnlineRouter;

@@ -1,50 +1,51 @@
-// =============================
-// Router principal de l'application
-// =============================
-// Ce router determine quel router afficher selon l'etat de connexion
-// utilisateur connecté -> OnlineRouter
-// utilisateur non connecté -> OfflineRouter
+// ===========================
+// ROUTER PRINCIPALE DE L'APPLICATION
+// ===========================
+// ce router determine quel router afficher selon l'état de connexion
+// utilisateur connecté-> OnlineRouter (application complète)
+// utilisateur pas connecté -> OfflineRouter (login/register)
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import OfflineRouter from "./OfflineRouter";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../contexts/AuthContext";
 import { USER_INFOS } from "../constants/appConstant";
 import PageLoader from "../components/Loader/PageLoader";
 import OnlineRouter from "./OnlineRouter";
 
-// ==================================
-// contexte de session utilisateur
-// ==================================
-// mini contexte pour parager l'etat de connexion de l'utilisateur et ses infos basiques (email, pseudo, id)
+// ===========================
+// CONTEXTE DE SESSION
+// ===========================
+// Mini contexte pour partager l'état de connexion dans l'app
 const SessionContext = createContext({ inSession: false });
 
-// hook personnalise pour utiliser le contexte de session plus facilement dans les composants
+// Hook personnalisé pour accéder au contexte de session
 export const useSessionContext = () => useContext(SessionContext);
 
 const AppRouter = () => {
-  // state pour gerer l'etat de connexion
-  // null = chargement , true = utilisateur connecté , false = utilisateur non connecté
+  // state pour gérer l'état de connexion
+  // null = chargement, true = connecté, false = déconnecté
   const [inSession, setInSession] = useState(null);
 
-  // recuperer les fonctions du contexte d'authentification pour verifier la session de l'utilisateur
+  // récupérer les fonctions du contexte d'authentification
   const { userId, setUserId, setEmail, setNickname } = useAuthContext();
 
-  // recuperation des donnees utilisateur du localStorage
+  // recupération des données utilisateur du localStorage
   const userInfos = JSON.parse(localStorage.getItem(USER_INFOS));
-  //=============================
-  // Verification de session au montage
-  //=============================
+
+  // ===========================
+  // VERIFICATION DE SESSION AU MONTAGE
+  // ===========================
   useEffect(() => {
     const checkUserSession = async () => {
       if (userInfos) {
-        // si j'ai des infos utilisateur dans le localStorage alors je considere que l'utilisateur est en session
+        // si des infos utilisateur existent, on les charge dans le contexte
         setUserId(userInfos.userId);
         setEmail(userInfos.email);
         setNickname(userInfos.nickname);
         setInSession(true);
       } else {
-        // aucune session utilisateur n'est detectee
+        // aucune session utilisateur trouvé
         setInSession(false);
       }
     };
@@ -52,15 +53,15 @@ const AppRouter = () => {
     checkUserSession();
   }, [userId]);
 
-  // =====================================================
-  // Affichage du loader pendant la verification de session
-  // =====================================================
+  // ===========================
+  // AFFICHAGE DU LOADER PENDANT LA VERIF
+  // ===========================
   if (inSession === null) {
     return <PageLoader />;
   }
 
   return (
-    <SessionContext.Provider value={{ inSession }}>
+    <SessionContext.Provider value={{inSession }}>
       <RouterProvider router={inSession ? OnlineRouter : OfflineRouter} />
     </SessionContext.Provider>
   );

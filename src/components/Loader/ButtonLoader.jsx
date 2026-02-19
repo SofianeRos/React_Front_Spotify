@@ -1,13 +1,5 @@
-import React from 'react'
-import { RingLoader } from 'react-spinners'
+import { RingLoader } from "react-spinners";
 
-const ButtonLoader = () => {
-  return (
-    <RingLoader 
-    size={50}
-    color="rgba(30,215,96,1)"
-    />
-  )
-}
+const ButtonLoader = () => <RingLoader size={50} color="rgba(30,215,96,1)" />;
 
-export default ButtonLoader
+export default ButtonLoader;

@@ -1,57 +1,59 @@
 @import "tailwindcss";
 
 @theme {
-    /* Charte graphique */
-    --color-black: rgba(24, 24, 24, 1);
-    --color-black_05: rgba(24, 24, 24, 0.5);
-    --color-white: rgba(245, 245, 245, 1);
-    --color-white_05: rgba(245, 245, 245, 0.5);
-    --color-white_01: rgba(245, 245, 245, 0.1);
-    --color-green: rgba(30, 215, 96, 1);
-    --color-green_08: rgba(30, 215, 96, 0.8);
-    --color-green_06: rgba(30, 215, 96, 0.6);
-    --color-green_top: rgba(26, 173, 78, 1);
-    /* animations */
-    --animate-slideup: slideup 1s ease-in-out;
-    --animate-slideup2: slideup 0.5s ease-in-out;
+  /* Charte graphique */
+  --color-black: rgba(24, 24, 24, 1);
+  --color-black_05: rgba(24, 24, 24, 0.5);
+  --color-white: rgba(245, 245, 245, 1);
+  --color-white_05: rgba(245, 245, 245, 0.5);
+  --color-white_01: rgba(245, 245, 245, 0.1);
+  --color-green: rgba(30, 215, 96, 1);
+  --color-green_08: rgba(30, 215, 96, 0.8);
+  --color-green_06: rgba(30, 215, 96, 0.6);
+  --color-green_top: rgba(26, 173, 78, 1);
+  /* animations */
+  --animate-slideup: slide-up 1s ease-in-out;
+  --animate-slideup2: slide-up 0.5s ease-in-out;
 
-    @keyframes slide-up{
-        0% {
-            transform: translateY(25%);
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(0);
-            opacity: 1;
-        }
+  @keyframes slide-up{
+    0% {
+      transform: translateY(25%);
+      opacity: 0;
     }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 .title-h1{
-    @apply text-white text-3xl sm:text-4xl font-bold mb-6 tracking-tight;
+  @apply text-white text-3xl sm:text-4xl font-bold mb-6 tracking-tight
 }
 
 .main-button{
-    @apply w-full bg-green hover:bg-green_top text-black font-bold py-3.5 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98];
+  @apply w-full bg-green hover:bg-green_top text-black font-bold py-3.5 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
 }
 
 .link-sidebar {
-    @apply w-full flex p-3 items-center justify-start font-medium text-sm text-white hover:bg-green hover:text-white transition duration-500;
-
+  @apply w-full flex p-3 items-center justify-start font-medium text-sm text-white hover:bg-green hover:text-white transition duration-500
 }
+
 .active, .active svg {
-    @apply text-green text-base ms-1;
+  @apply text-green text-base ms-1
 }
 
 .active:hover, .active:hover svg {
-    @apply text-white duration-500;
+  @apply text-white duration-500
 }
-/* barre de scroll */
+
+/* barre de scroll  */
 ::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
+  width: 10px;
+  background-color: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-    @apply bg-green_top;
-    border-radius: 5px;
+  @apply bg-green_top;
+  border-radius: 5px;
 }

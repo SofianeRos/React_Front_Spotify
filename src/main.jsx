@@ -2,16 +2,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import AppRouter from "./router/AppRouter.jsx";
-import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { AuthContextProvider } from "./contexts/AuthContext.jsx";
 import { Provider } from "react-redux";
+import store from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* Contexte d'authentification - fournit les informations de l'utilisateur connecté */}
+    {/* Contexte d'authentification - disponible dans toute l'app */}
     <AuthContextProvider>
-      {/* store redux gere letat global */}
+      {/* Store redux - Gère l'état global (albums, artistes, player) */}
       <Provider store={store}>
-        {/* Router - gere la navigation entre les pages */}
+        {/* Router - Gère la navigation entre les pages */}
         <AppRouter />
       </Provider>
     </AuthContextProvider>

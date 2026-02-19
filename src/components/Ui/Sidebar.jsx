@@ -6,49 +6,49 @@ import {
   styleIcon,
 } from "../../constants/appConstant";
 import Navlinks from "./Navlinks";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { RiCloseLine } from "react-icons/ri";
 import { HiOutlineMenu } from "react-icons/hi";
 
-// mini composant pour la deconnexion
+//Mini composant pour la deconnexion
 const Logout = () => {
   const { signOut } = useAuthContext();
   const navigate = useNavigate();
 
-  // on cree la methode de deconnexion
+  //on se crée la méthode de deconnexion
   const handleLogout = () => {
-    signOut(); // on deconnecte l'utilisateur en appelant la methode du contexte d'authentification
-    navigate("/"); // on redirige l'utilisateur vers la page de connexion apres la deconnexion
+    signOut();
+    navigate("/");
   };
+
   return (
     <button
       onClick={() => {
         const confirmLogout = window.confirm(
-          "Voulez vous vraiment vous deconnecter ?",
+          "Voulez vous vraiment vous déconnecter ?",
         );
         if (confirmLogout) handleLogout();
       }}
       className="link-sidebar"
     >
       <FiLogOut className="mr-2" style={styleIcon} />
-      Deconnexion
+      deconnexion
     </button>
   );
 };
 
 const Sidebar = () => {
-  // on cree nos states
+  //on crée nos states
   const [mobileMenu, setMobileMenu] = useState(false);
-  // on recupere l'id de l'utilisateur connecte grace au contexte d' authentification
-
+  //on recupère l'id de l'utilisateur connecté grace au contexte d'authentification
   const { userId } = useAuthContext();
 
   return (
     <>
-      {/* Side bar pour la vue au dessus de 768px */}
-      <div className="hidden flex-col md:flex w-60 py-10 px-4 bg-black justify-between">
+      {/* sidebar pour la vue au dessus de 768px */}
+      <div className="hidden md:flex flex-col w-60 py-10 px-4 bg-black justify-between">
         <div>
           <img
             className="w-full h-14 object-contain"
@@ -56,7 +56,9 @@ const Sidebar = () => {
             alt="Logo Spotify"
           />
           <h2 className="text-lg text-white font-semibold mt-10">Albums</h2>
+          {/* TODO ici la boucle pour afficher la liste des onglet suivant le tableau de data */}
           <Navlinks data={dataAlbumNav} marginTop={"mt-4"} />
+
           <h2 className="text-lg text-white font-semibold mt-10">
             Utilisateur
           </h2>
@@ -67,7 +69,7 @@ const Sidebar = () => {
           <Logout />
         </div>
       </div>
-      {/* gestion des icones pour ouvrir/fermer le menu petit ecran */}
+      {/* gestion des icones pour ouvrir/fermer le menu en petit ecran */}
       <div className="absolute md:hidden block top-6 right-3">
         {mobileMenu ? (
           <RiCloseLine
@@ -83,8 +85,8 @@ const Sidebar = () => {
           />
         )}
       </div>
-            {/* Side bar pour la vue au dessus de 768px */}
-      <div className={`z-20 absolute top-0 h-screen w-2/3 bg-linear-to-tl from-white_01 to-black backdrop-blur-lg md:hidden smooth-transition duration-500 ${mobileMenu ? 'left-0' : '-left-full'} flex flex-col justify-beetween p-6`}>
+      {/* sidebar pour la vue en dessous de 768px */}
+      <div className={`z-20 absolute top-0 h-screen w-2/3 bg-linear-to-tl from-white_01 to-black backdrop-blur-lg md:hidden smooth-transition duration-500 ${mobileMenu ? 'left-0' : '-left-full'} flex flex-col justify-between p-6`}>
         <div>
           <img
             className="w-full h-14 object-contain"
@@ -92,7 +94,9 @@ const Sidebar = () => {
             alt="Logo Spotify"
           />
           <h2 className="text-lg text-white font-semibold mt-10">Albums</h2>
+          {/* TODO ici la boucle pour afficher la liste des onglet suivant le tableau de data */}
           <Navlinks data={dataAlbumNav} marginTop={"mt-4"} />
+
           <h2 className="text-lg text-white font-semibold mt-10">
             Utilisateur
           </h2>
@@ -103,7 +107,6 @@ const Sidebar = () => {
           <Logout />
         </div>
       </div>
-
     </>
   );
 };

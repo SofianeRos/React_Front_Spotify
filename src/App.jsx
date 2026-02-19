@@ -5,24 +5,22 @@ import Topbar from "./components/Ui/Topbar";
 
 const App = () => {
   return (
-   <div className="relative flex">
-    <Sidebar/>
+    <div className="relative flex">
+      {/* SIDEBAR: Navigation principale (gauche) */}
+      <Sidebar />
 
-    <div className="flex-1 flex flex-col bg-linear-to-b from-black to-[rgb(18,18,18)]">
-      {/* topbar : barre superieur */}
-      <Topbar/>
+      <div className="flex-1 flex flex-col bg-linear-to-b from-black to-[rgb(18,18,18)]">
+        {/* Topbar : barre supérieur (profil, recherche) */}
+        <Topbar />
 
-      <div className="h-[calc(100vh-64px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-
-      <div className="flex-1 h-fit pb-40 text-white">
-        <Outlet/>
+        <div className="h-[calc(100vh-64px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+          <div className="flex-1 h-fit pb-40 text-white">
+            <Outlet />
+          </div>
+        </div>
       </div>
-
-      </div>
-
+      {/* TODO : ici le player */}
     </div>
-    {/* // TODO: mettre le player ici */}
-   </div>
   );
 };
 

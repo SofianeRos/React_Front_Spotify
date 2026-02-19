@@ -1,30 +1,30 @@
-// ====================
-// constante de l'api
-// ====================
-// ce fichier peut centralisé toutes les api Symfony
-// l'avantage : Modifier l'url de base en un seul endroit
+// ======================
+// CONSTANTES DE L'API
+// ======================
+// ce fichier centralisentoutes les URL le l'API Symfony
+// l'avantage: Modifier l'URL de base en un seul endroit
 
-// Url racine du serveur backend
-export const API_ROOT = 'http://localhost:8088';
+// URL racine du serveur backend 
+export const API_ROOT = "http://localhost:8088";
 
-// l'Url de base de l'api plateform 
+// l'URL de base de l'API Plateform
 export const API_URL = `${API_ROOT}/api`;
 
-// ==============================
-// Url des ressources statiques 
-// ==============================
+// =================================
+// URLs DES RESSOURCES STATIQUES
+// =================================
 
-// images generales (logo, etc ... )
+// Images générales (logo, etc)
 export const IMAGE_URL = `${API_ROOT}/images`;
 
-// Avatar des utilisateurs
+// Avatars des utilisateurs
 export const AVATAR_URL = `${IMAGE_URL}/avatars`;
 
-// cover des albums 
+// Cover des albums
 export const ALBUM_URL = `${API_ROOT}/upload/images/albums`;
 
-// photo des artistes 
+// Photos des artistes
 export const ARTIST_URL = `${API_ROOT}/upload/images/artists`;
 
-// fichier audio mp3 
+// Fichiers audio MP3
 export const MUSIC_URL = `${API_ROOT}/upload/files/music`;
