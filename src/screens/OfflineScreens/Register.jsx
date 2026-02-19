@@ -52,7 +52,6 @@ const Register = () => {
           password,
           nickname
         })
-console.log("RESPONSE",response.data)
         if(response.data?.success === false){
           setErrorMessage(response.data.message);
           

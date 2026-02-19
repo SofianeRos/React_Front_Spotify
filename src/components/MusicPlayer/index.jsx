@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { nextSong, playPause, prevSong } from '../../store/player/playerSlice';
 import Track from './Track';
 import Controls from './Controls';
+import SeekBar from './SeekBar';
+import Player from './Player';
 
 const MusicPlayer = () => {
 // on va recuperer toutes les donnees du slice palyer 
 
 const {activeSong, currentSongs, currentAlbum, currentIndex, isActive, isPlaying} = useSelector((state) => state.player)
-console.log(currentAlbum)
 
 // on va declarer nos states 
 
@@ -81,7 +82,28 @@ return (
             handleNextSong={handleNextSong}
             handlePrevSong={handlePrevSong}
             />
+            {/* barre de progression de la musique */}
+            <SeekBar 
+            value={appTime} // valeur actuelle de la barre de progression
+            min="0" // valeur minimale de la barre de progression
+            max={duration} // duree totale de la musique
+            onInput={(event) => setSeekTime(event.target.value)} // met a jour le temps de la musique quand on interagit avec la barre de progression
+            setSeekTime={setSeekTime} // met a jour le temps de la musique quand on interagit avec la barre de progression
+            appTime={appTime} // temps actuel de la musique
 
+            />
+            {/* le player */}
+            <Player 
+            activeSong={activeSong}
+            volume={volume}
+            isPlaying={isPlaying}
+            seekTime={seekTime}
+            repeat={repeat}
+            currentIndex={currentIndex}
+            onEnded={handleNextSong}
+            onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
+            onLoadedData={(event) => setDuration(event.target.duration)}
+            />
         </div>
     </div>
 )

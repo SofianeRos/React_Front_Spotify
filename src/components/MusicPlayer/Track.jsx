@@ -9,7 +9,6 @@ const Track = ({
   artist = "artiste inconnu",
 }) => {
   // on cree nos variables
-console.log("current album dans track", currentAlbum)
   const imgAlbum = `${ALBUM_URL}/${currentAlbum?.imagePath}`;
   const title = activeSong?.title ?? "Titre inconnu";
   const artistName = activeSong?.artist?.name ?? artist;
