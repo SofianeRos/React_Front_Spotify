@@ -11,7 +11,7 @@ const Track = ({
   // on cree nos variables
   const imgAlbum = `${ALBUM_URL}/${currentAlbum?.imagePath}`;
   const title = activeSong?.title ?? "Titre inconnu";
-  const artistName = activeSong?.artist?.name ?? artist;
+  const artistName = currentAlbum?.artist?.name ?? artist;
   const album = currentAlbum?.title ?? "Album inconnu";
 
   return (
