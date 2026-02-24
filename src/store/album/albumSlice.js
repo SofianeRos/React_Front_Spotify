@@ -7,7 +7,8 @@ const albumSlice = createSlice({
   initialState: {
     loading: false,
     albums: [],
-    albumDetail: {}
+    albumDetail: {},
+    albumByGenre: []
   },
   reducers: {
     setLoading: (state, action) => {
@@ -18,17 +19,20 @@ const albumSlice = createSlice({
     },
     setAlbumDetail: (state, action) => {
       state.albumDetail = action.payload.member[0]
+    },
+    setAlbumByGenre: (state, action) => {
+      state.albumByGenre = action.payload
     }
   }
 })
 
-export const {setLoading, setAlbums, setAlbumDetail} = albumSlice.actions;
+export const {setLoading, setAlbums, setAlbumDetail, setAlbumByGenre} = albumSlice.actions;
 /**
  * ==============================
  * PARTIE DES REQUETE SUR L'API
  * ==============================
  */
-
+// methode qui recupere les albums actifs
 export const fetchAlbums = (page = 1) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
@@ -41,6 +45,7 @@ export const fetchAlbums = (page = 1) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 }
+// methode qui recupere les albums par id
 export const fetchAlbumDetail = (id) => async (dispatch) => {
     try {
     dispatch(setLoading(true));
@@ -54,4 +59,32 @@ export const fetchAlbumDetail = (id) => async (dispatch) => {
   }
 
 }
+// methode qui recupere les albums par genre
+export const fetchAlbumByGenre = (genreArray) => async (dispatch) => {
+try {
+  dispatch(setLoading(true));
+  //  on va boucler sur notre tableau de genre 
+  let result = [];
+  genreArray && genreArray.map(async (genre) => {
+    const label = genre.label;
+    const response = await axios.get(`${API_URL}/albums?page=1&genre.label=${label}&isActive=true`);
+    result = result.concat(response.data.member);
+    result = result.filter((album, index, self) => index === self.findIndex((t) => (t.id === album.id && t.title === album.title)));
+  })
+// on limite le tableau avec un random de 5 resultats
+  result = result.sort(() => Math.random() - Math.random()).slice(0, 5);
+  dispatch(setAlbumByGenre(result));
+
+
+
+
+} catch (error) {
+  console.log(`Erreur lors de la récupération des albums par genre: ${error}`)
+}finally{
+  dispatch(setLoading(false));
+}
+}
+
+
+
 export default albumSlice.reducer;
