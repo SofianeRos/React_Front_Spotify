@@ -16,7 +16,7 @@ const Track = ({
   const album = currentAlbum?.title ?? "Album inconnu";
   
   const artistName = currentAlbum?.artist?.name 
-  ? current?.artist?.name
+  ? currentAlbum?.artist?.name
   : artistDetail?.name
   ? artistDetail?.name
   : artist;
