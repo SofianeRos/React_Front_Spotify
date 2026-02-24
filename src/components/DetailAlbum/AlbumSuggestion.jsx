@@ -1,6 +1,8 @@
 import React from 'react'
 import AlbumCard from '../Card/AlbumCard';
 import { useSelector } from 'react-redux';
+import selectAlbumData from '../../store/album/albumSelector';
+import PageLoader from '../Loader/PageLoader';
 
 const AlbumSuggestion = ({ albumByGenre }) => {
 
@@ -8,7 +10,9 @@ const AlbumSuggestion = ({ albumByGenre }) => {
 
     if(!albumByGenre?.length) return null;
 
+
   return (
+    
     <div className="w-full px-4 sm:px-6 lg:px-8 pt-10 pb-16">
         <h2 className="text-xl font-bold text-white mb-6">
             Dans le meme genre 

@@ -1,5 +1,6 @@
 import React from "react";
 import { ALBUM_URL } from "../../constants/apiConstant";
+import { useSelector } from "react-redux";
 
 const Track = ({
   isPlaying,
@@ -8,11 +9,18 @@ const Track = ({
   activeSong,
   artist = "artiste inconnu",
 }) => {
+  const {artistDetail}= useSelector((state) => state.artists);
   // on cree nos variables
   const imgAlbum = `${ALBUM_URL}/${currentAlbum?.imagePath}`;
   const title = activeSong?.title ?? "Titre inconnu";
-  const artistName = currentAlbum?.artist?.name ?? artist;
   const album = currentAlbum?.title ?? "Album inconnu";
+  
+  const artistName = currentAlbum?.artist?.name 
+  ? current?.artist?.name
+  : artistDetail?.name
+  ? artistDetail?.name
+  : artist;
+
 
   return (
     <div className="flex flex-1 items-center justify-start">

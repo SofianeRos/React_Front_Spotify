@@ -1,0 +1,34 @@
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { API_URL } from "../../constants/apiConstant";
+
+const artistSlice = createSlice({
+    name: "artists",
+    initialState: {
+        loading: false,
+        artistDetail: {},
+    },
+    reducers: {
+        setLoading: (state, action) => {
+            state.loading = action.payload
+        },
+        setArtistDetail: (state, action) => {
+            state.artistDetail = action.payload.member[0]
+        },
+    }
+})
+export const {setLoading, setArtistDetail} = artistSlice.actions;
+
+// methode qui recup le detail d'un artiste 
+export const fetchArtistDetail = (id) => async (dispatch) => {
+try {
+    dispatch(setLoading(true));
+    const response = await axios.get(`${API_URL}/artists?page=1&id=${id}&albums.isActive=true`)
+    dispatch(setArtistDetail(response.data));
+} catch (error) {
+    console.log(`Erreur lors de la récupération du detail de l'artiste: ${error}`)
+}finally{
+    dispatch(setLoading(false));
+}
+}
+export default artistSlice.reducer;

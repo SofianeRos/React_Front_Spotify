@@ -26,7 +26,7 @@ const HeaderInfo = ({ dataAlbum }) => {
 
   return (
     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-0 gap-y-1 mt-3">
-      <Link to={"#"} className="inline-flex items-center gap-2 group">
+      <Link to={`/artist-detail/${dataAlbum?.artist?.id}`} className="inline-flex items-center gap-2 group">
         <img
           src={imgPath}
           alt={dataAlbum?.artist?.name ?? "artist inconnu"}
